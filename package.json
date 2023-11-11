@@ -1,0 +1,106 @@
+{
+  "name": "minotor",
+  "version": "0.0.1-development",
+  "description": "A lightweight client-side transit router.",
+  "keywords": [
+    "minotor",
+    "raptor",
+    "transit",
+    "planner",
+    "transport",
+    "router",
+    "gtfs",
+    "trains"
+  ],
+  "homepage": "https://github.com/aubryio/minotor",
+  "private": true,
+  "bugs": "https://github.com/aubryio/minotor/issues",
+  "author": "Aubry Cholleton <aubry.cholleton@gmail.com>",
+  "license": "MIT",
+  "repository": "aubryio/",
+  "type": "module",
+  "main": "dist/bundle.cjs.js",
+  "module": "dist/bundle.esm.js",
+  "browser": "dist/bundle.umd.js",
+  "bin": {
+    "minotor": "./dist/cli.mjs"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/bundle.esm.js",
+      "require": "./dist/bundle.cjs.js"
+    }
+  },
+  "types": "./dist/index.d.ts",
+  "engines": {
+    "node": ">=21.1.0",
+    "npm": ">=10.9.1"
+  },
+  "volta": {
+    "node": "21.1.0",
+    "npm": "10.9.1"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build:proto": "protoc --plugin=./node_modules/.bin/protoc-gen-ts_proto --ts_proto_out=. ./src/timetable/proto/timetable.proto; protoc --plugin=./node_modules/.bin/protoc-gen-ts_proto --ts_proto_out=. ./src/stops/proto/stops.proto",
+    "build": "npm run clean && npm run build:proto && npm run type:dts && npm run build:src",
+    "build:src": "rollup -c",
+    "clean": "rimraf build coverage",
+    "type:dts": "tsc --emitDeclarationOnly --project tsconfig.build.json",
+    "type:check": "tsc --noEmit",
+    "lint": "eslint src --fix",
+    "lint:check": "eslint src",
+    "format:check": "prettier . --check",
+    "format": "prettier --write .",
+    "test": "tsx --test src/**/*.test.ts",
+    "test:watch": "tsx --watch --test src/**/*.test.ts",
+    "test:coverage": "c8 -x 'src/**/proto/*.ts' -x 'src/**/__tests__/*.ts' --check-coverage --lines=85 tsx --test src/**/*.test.ts",
+    "spell:check": "cspell \"{README.md,.github/*.md,src/**/*.ts}\" -u",
+    "cz": "cz",
+    "semantic-release": "semantic-release"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.0.0",
+    "@rollup/plugin-commonjs": "^28.0.1",
+    "@rollup/plugin-node-resolve": "^15.3.0",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-typescript": "^12.1.1",
+    "@ryansonshine/commitizen": "^4.2.8",
+    "@ryansonshine/cz-conventional-changelog": "^3.3.4",
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/commit-analyzer": "^13.0.0",
+    "@semantic-release/github": "^11.0.1",
+    "@semantic-release/npm": "^12.0.1",
+    "@semantic-release/release-notes-generator": "^14.0.1",
+    "@types/eslint__js": "^8.42.3",
+    "@types/geokdbush": "^1.1.5",
+    "@types/luxon": "^3.4.2",
+    "@types/node": "^22.9.0",
+    "c8": "^10.1.2",
+    "cspell": "^8.16.0",
+    "eslint": "^9.15.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-simple-import-sort": "^12.1.1",
+    "prettier": "^3.3.3",
+    "rimraf": "^6.0.1",
+    "rollup": "^4.27.2",
+    "semantic-release": "^24.2.0",
+    "ts-proto": "^2.2.7",
+    "tsx": "^4.19.2",
+    "typescript": "^5.6.3",
+    "typescript-eslint": "^8.14.0"
+  },
+  "dependencies": {
+    "@bufbuild/protobuf": "^2.2.2",
+    "commander": "^12.1.0",
+    "csv-parse": "^5.5.6",
+    "geokdbush": "^2.0.1",
+    "kdbush": "^4.0.2",
+    "loglevel": "^1.9.2",
+    "luxon": "^3.5.0",
+    "node-stream-zip": "^1.15.0",
+    "slimsearch": "^2.2.1"
+  }
+}
