@@ -6,20 +6,30 @@ import { ReachingTime, Router } from './routing/router.js';
 import { StopId } from './stops/stops.js';
 import { StopsIndex } from './stops/stopsIndex.js';
 import { Time } from './timetable/time.js';
-import { Timetable } from './timetable/timetable.js';
+import {
+  PickUpDropOffType,
+  RouteType,
+  ServiceRoute,
+  Timetable,
+  TransferType,
+} from './timetable/timetable.js';
 
 export {
   Leg,
+  PickUpDropOffType,
   Plotter,
   Query,
   ReachingTime,
   Result,
   Route,
   Router,
+  RouteType,
+  ServiceRoute,
   StopId,
   StopsIndex,
   Time,
   Timetable,
   Transfer,
+  TransferType,
   VehicleLeg,
 };
