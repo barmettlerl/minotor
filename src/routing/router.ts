@@ -97,7 +97,9 @@ export class Router {
   private initRoutingState(query: Query): RoutingState {
     const { from, to, departureTime } = query;
     // Consider children or siblings of the "from" stop as potential origins
-    const origins = this.stopsIndex.equivalentStops(from);
+    const origins = Array.from(from).flatMap((origin) =>
+      this.stopsIndex.equivalentStops(origin),
+    );
     // Consider children or siblings of the "to" stop(s) as potential destinations
     const destinations = Array.from(to).flatMap((destination) =>
       this.stopsIndex.equivalentStops(destination),

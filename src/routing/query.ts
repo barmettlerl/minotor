@@ -4,7 +4,7 @@ import { Time } from '../timetable/time.js';
 import { ALL_TRANSPORT_MODES, RouteType } from '../timetable/timetable.js';
 
 export class Query {
-  from: SourceStopId;
+  from: Set<SourceStopId>;
   to: Set<SourceStopId>;
   departureTime: Time;
   lastDepartureTime?: Time;
@@ -22,7 +22,7 @@ export class Query {
   }
 
   static Builder = class {
-    fromValue!: SourceStopId;
+    fromValue!: Set<SourceStopId>;
     toValue: Set<SourceStopId> = new Set();
     departureTimeValue!: Time;
     // lastDepartureTimeValue?: Date;
@@ -40,7 +40,7 @@ export class Query {
     /**
      * Sets the starting stop.
      */
-    from(from: SourceStopId): this {
+    from(from: Set<SourceStopId>): this {
       this.fromValue = from;
       return this;
     }
