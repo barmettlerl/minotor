@@ -38,10 +38,10 @@ export class Query {
     };
 
     /**
-     * Sets the starting stop.
+     * Sets the starting stop(s), routing will initialize with all stops.
      */
-    from(from: Set<SourceStopId>): this {
-      this.fromValue = from;
+    from(from: SourceStopId | Set<SourceStopId>): this {
+      this.fromValue = from instanceof Set ? from : new Set([from]);
       return this;
     }
 

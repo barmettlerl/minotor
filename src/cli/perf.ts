@@ -58,12 +58,14 @@ export const testRouterPerformance = (
   const results: PerformanceResult[] = [];
 
   for (const task of tasks) {
-    const fromStop = stopsIndex.findStopBySourceStopId(task.from);
+    const fromStop = Array.from(task.from).map((stopId) =>
+      stopsIndex.findStopBySourceStopId(stopId),
+    );
     const toStops = Array.from(task.to).map((stopId) =>
       stopsIndex.findStopBySourceStopId(stopId),
     );
 
-    if (!fromStop || toStops.some((toStop) => !toStop)) {
+    if (fromStop.some((stop) => !stop) || toStops.some((toStop) => !toStop)) {
       throw new Error(
         `Invalid task: Start or end station not found for task ${JSON.stringify(task)}`,
       );
